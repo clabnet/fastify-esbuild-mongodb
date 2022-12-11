@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.2.1 (2022-12-11)
+
+
+### ✨ Features
+
+* add CRUD Mongodb 432ebe9
+
 ### [0.1.3](https://github.com/davipon/fastify-esbuild/compare/v0.1.2...v0.1.3) (2022-12-08)
 
 
