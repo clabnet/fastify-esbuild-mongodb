@@ -2,6 +2,8 @@ import fp from 'fastify-plugin'
 import mongo from '@fastify/mongodb'
 import { FastifyInstance, FastifyServerOptions } from 'fastify'
 
+import config from '../common/config'
+
 /**
  * This plugins adds MongoDB connection plugin
  *
@@ -12,7 +14,8 @@ export default fp(
     await fastify.register(mongo, {
       // force to close the mongodb connection when app stopped
       forceClose: true,
-      url: fastify.config.MONGO_URL
+      // url: fastify.config.MONGO_URL
+      url: config.mongo.connection
     })
   }
 )

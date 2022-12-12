@@ -3,11 +3,16 @@ import { join } from 'path'
 import autoLoad from '@fastify/autoload'
 import { fastifyEnv } from '@fastify/env'
 
+/**
+ * The following lines initialize dotenv,
+ * so that env vars from the .env file are present in process.env
+ */
+import * as dotenv from 'dotenv'
+dotenv.config()
+
 // import path from 'path';
 // import { fileURLToPath } from 'url';
-
 // const __filename = fileURLToPath(import.meta.url);
-
 // const __dirname = path.dirname(__filename);
 // console.log('directory-name 👉️', __dirname);
 
@@ -63,7 +68,9 @@ const initialize = async () => {
   }
 
   fastify.register(fastifyEnv, options)
+
   await fastify.after()
+  // Now the .env variables are defined
 
   // Will load all plugins
   fastify.register(autoLoad, {
@@ -78,7 +85,7 @@ const initialize = async () => {
   try {
     await fastify.ready()
     // console.log(fastify.printRoutes())
-    console.log(fastify.config)
+    // console.log(fastify.config)
 
     await fastify.listen({ port: 5000 })
   } catch (err) {

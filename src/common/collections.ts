@@ -1,6 +1,6 @@
 export const collections = {
   schemas: 'schemas',
-  boards: 'boards',
+  books: 'books',
   translations: 'translations',
   soms: 'systemsOfMeasure'
 }

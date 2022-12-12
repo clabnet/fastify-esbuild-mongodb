@@ -4,10 +4,11 @@ import { FastifySchema } from 'fastify'
 import { FromSchema } from 'json-schema-to-ts'
 
 // Entity schema
-export const boardSchema = {
-  $id: 'board',
+export const bookSchema = {
+  $id: 'book',
   type: 'object',
   properties: {
+    _id: { type: 'string' },
     id: { type: 'string' },
     title: { type: 'string' },
     published: { type: 'boolean' },
@@ -15,15 +16,16 @@ export const boardSchema = {
     tags: { type: 'array', items: { type: 'string' } },
     deleted: { type: 'boolean' }
   },
-  required: ['title', 'published', 'content', 'tags', 'deleted']
+  // required: ['_id', 'id', 'title', 'published', 'content', 'tags', 'deleted']
+  required: ['_id', 'id', 'title']
 } as const
 
 // Body schema
-export type Board = FromSchema<typeof boardSchema>
+export type Book = FromSchema<typeof bookSchema>
 
 // Not found schema
-export const boardNotFoundSchema = {
-  $id: 'boardNotFound',
+export const bookNotFoundSchema = {
+  $id: 'bookNotFound',
   type: 'object',
   required: ['error'],
   properties: {
@@ -32,8 +34,8 @@ export const boardNotFoundSchema = {
   additionalProperties: false
 } as const
 
-// Board not found schema
-export type BoardNotFound = FromSchema<typeof boardNotFoundSchema>
+// Book not found schema
+export type BookNotFound = FromSchema<typeof bookNotFoundSchema>
 
 // Params schema
 const paramsSchema = {
@@ -62,10 +64,10 @@ export type Querystring = FromSchema<typeof querystringSchema>
 const replySchema = {
   type: 'object',
   properties: {
-    // Return array of boards object
-    boards: {
+    // Return array of books object
+    books: {
       type: 'array',
-      items: { $ref: 'board#' }
+      items: { $ref: 'book#' }
     }
   },
   additionalProperties: false
@@ -73,7 +75,7 @@ const replySchema = {
 
 export type Reply = FromSchema<
   typeof replySchema,
-  { references: [typeof boardSchema] }
+  { references: [typeof bookSchema] }
 >
 
 // ---------
@@ -81,10 +83,10 @@ export type Reply = FromSchema<
 // so that @fastify/swagger can automatically generate OpenAPI spec & Swagger UI
 // ---------
 
-/* Get all boards */
-export const getBoardsSchema: FastifySchema = {
-  tags: ['boards'],
-  description: 'Get boards',
+/* Get all books */
+export const getBooksSchema: FastifySchema = {
+  tags: ['books'],
+  description: 'Get books',
   querystring: querystringSchema,
   response: {
     200: {
@@ -93,30 +95,30 @@ export const getBoardsSchema: FastifySchema = {
   }
 }
 
-/* Get board by ID */
-export const getBoardByIdSchema: FastifySchema = {
-  tags: ['boards'],
-  description: 'Get a board by id',
+/* Get book by ID */
+export const getBookByIdSchema: FastifySchema = {
+  tags: ['books'],
+  description: 'Get a book by id',
   params: paramsSchema,
   response: {
     200: {
       ...replySchema
     },
     404: {
-      description: 'The board was not found',
-      $ref: 'boardNotFound#'
+      description: 'The book was not found',
+      $ref: 'bookNotFound#'
     }
   }
 }
 
-/* Create a board */
-export const createBoardSchema: FastifySchema = {
-  tags: ['boards'],
-  description: 'Create a new board',
-  body: boardSchema,
+/* Create a book */
+export const createBookSchema: FastifySchema = {
+  tags: ['books'],
+  description: 'Create a new book',
+  body: bookSchema,
   response: {
     201: {
-      description: 'The board was created',
+      description: 'The book was created',
       headers: {
         Location: {
           type: 'string',
@@ -124,42 +126,42 @@ export const createBoardSchema: FastifySchema = {
         }
       },
       // Return newly created resource as the body of the response
-      ...boardSchema
+      ...bookSchema
     }
   }
 }
 
 /* Put */
-export const updateBoardSchema: FastifySchema = {
-  tags: ['boards'],
-  description: 'Update a board',
+export const updateBookSchema: FastifySchema = {
+  tags: ['books'],
+  description: 'Update a book',
   params: paramsSchema,
-  body: boardSchema,
+  body: bookSchema,
   response: {
     204: {
-      description: 'The board was updated',
+      description: 'The book was updated',
       type: 'null'
     },
     404: {
-      description: 'The board was not found',
-      $ref: 'boardNotFound#'
+      description: 'The book was not found',
+      $ref: 'bookNotFound#'
     }
   }
 }
 
 /* Delete */
-export const deleteBoardSchema: FastifySchema = {
-  tags: ['boards'],
-  description: 'Delete a board',
+export const deleteBookSchema: FastifySchema = {
+  tags: ['books'],
+  description: 'Delete a book',
   params: paramsSchema,
   response: {
     204: {
-      description: 'The board was deleted',
+      description: 'The book was deleted',
       type: 'null'
     },
     404: {
-      description: 'The board was not found',
-      $ref: 'boardNotFound#'
+      description: 'The book was not found',
+      $ref: 'bookNotFound#'
     }
   }
 }

@@ -18,6 +18,7 @@ import esbuildPluginPino from 'esbuild-plugin-pino'
     platform: 'node',
     format: 'cjs',
     sourcemap: true,
-    plugins: [esbuildPluginPino({ transports: ['pino-pretty'] })]
+    plugins: [esbuildPluginPino({ transports: ['pino-pretty'] })],
+    external: ["esnext", "@fastify/swagger", "@fastify/swagger-ui"]
   })
 })()
