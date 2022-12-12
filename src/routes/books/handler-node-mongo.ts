@@ -5,12 +5,12 @@ import { Params, Querystring, Book, Reply, BookNotFound } from './schema'
 import { collections } from '../../common/collections.js'
 import { v4 as uuidv4 } from 'uuid'
 
-import { Database } from '@paralect/node-mongo';
+import { Database } from '@paralect/node-mongo'
 
-import config from '../../common/config';
+import config from '../../common/config'
 
-const database = new Database(config.mongo.connection);
-const booksService = database.createService<Book>("books", {});
+const database = new Database(config.mongo.connection)
+const booksService = database.createService<Book>('books', {})
 
 /**
  * Get all books
@@ -21,9 +21,9 @@ export const getBooks: RouteHandler<{
 }> = async function (req, reply) {
   const { deleted } = req.query
 
-  await database.connect();
+  await database.connect()
 
-  const { results } = (await booksService.find({ deleted: deleted }))
+  const { results } = await booksService.find({ deleted: deleted })
 
   // database.close()
 
@@ -41,11 +41,11 @@ export const getBooksPaged: RouteHandler<{
 }> = async function (req, reply) {
   const { deleted, page, perPage } = req.query
 
-  await database.connect();
+  await database.connect()
 
-  const { results } = (await booksService.find(
+  const { results } = await booksService.find(
     { deleted: deleted },
-    { page: page, perPage: perPage })
+    { page: page, perPage: perPage }
   )
 
   results.length > 0
@@ -114,7 +114,9 @@ export const updateBook: RouteHandler<{
     $set: { ...req.body }
   }
 
-  const book = collection?.findOneAndUpdate(filter, updateDoc, { returnDocument: "after" })
+  const book = collection?.findOneAndUpdate(filter, updateDoc, {
+    returnDocument: 'after'
+  })
 
   book
     ? reply.code(204).send()

@@ -8,7 +8,8 @@ export default fp<FastifyDynamicSwaggerOptions>(async (fastify) => {
     openapi: {
       info: {
         title: 'fastify-esbuild-mongodb',
-        description: 'A typescript boilerplate for Fastify, ESBuild, Swagger, Mongodb native driver',
+        description:
+          'A typescript boilerplate for Fastify, ESBuild, Swagger, Mongodb native driver',
         version: '1.0.0'
       },
       servers: [{ url: 'http://localhost:5000' }]
