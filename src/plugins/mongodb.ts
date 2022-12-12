@@ -14,7 +14,6 @@ export default fp(
     await fastify.register(mongo, {
       // force to close the mongodb connection when app stopped
       forceClose: true,
-      // url: fastify.config.MONGO_URL
       url: config.mongo.connection
     })
   }

@@ -16,8 +16,7 @@ export const bookSchema = {
     tags: { type: 'array', items: { type: 'string' } },
     deleted: { type: 'boolean' }
   },
-  // required: ['_id', 'id', 'title', 'published', 'content', 'tags', 'deleted']
-  required: ['_id', 'id', 'title']
+  required: ['id', 'title']
 } as const
 
 // Body schema
@@ -53,7 +52,9 @@ export type Params = FromSchema<typeof paramsSchema>
 const querystringSchema = {
   type: 'object',
   properties: {
-    deleted: { type: 'boolean' }
+    deleted: { type: 'boolean', description: 'True/False to return deleted records', default: false },
+    page: { type: 'number', description: 'Requested page', default: 1 },
+    perPage: { type: 'number', description: 'Rows for pages requested', default: 2 },
   },
   additionalProperties: false
 } as const

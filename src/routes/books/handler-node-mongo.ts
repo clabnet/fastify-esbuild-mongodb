@@ -10,7 +10,7 @@ import { Database } from '@paralect/node-mongo';
 import config from '../../common/config';
 
 const database = new Database(config.mongo.connection);
-const usersService = database.createService<Book>("users", {});
+const booksService = database.createService<Book>("books", {});
 
 /**
  * Get all books
@@ -23,12 +23,33 @@ export const getBooks: RouteHandler<{
 
   await database.connect();
 
-  const books = (await usersService.find({ deleted: deleted })).results
+  const { results } = (await booksService.find({ deleted: deleted }))
 
-  database.close()
+  // database.close()
 
-  books.length > 0
-    ? reply.code(200).send({ books: books })
+  results.length > 0
+    ? reply.code(200).send({ books: results })
+    : reply.code(404).send({ error: 'Book not found' })
+}
+
+/**
+ * Get all books paginated
+ */
+export const getBooksPaged: RouteHandler<{
+  Querystring: Querystring
+  Reply: Reply | BookNotFound
+}> = async function (req, reply) {
+  const { deleted, page, perPage } = req.query
+
+  await database.connect();
+
+  const { results } = (await booksService.find(
+    { deleted: deleted },
+    { page: page, perPage: perPage })
+  )
+
+  results.length > 0
+    ? reply.code(200).send({ books: results })
     : reply.code(404).send({ error: 'Book not found' })
 }
 
