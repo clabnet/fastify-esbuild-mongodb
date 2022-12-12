@@ -1,6 +1,6 @@
 {
   "name": "fastify-esbuild-mongodb",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "scripts": {
     "prepare": "husky install",
     "dev": "tsx watch src",
@@ -19,7 +19,6 @@
   "license": "ISC",
   "dependencies": {
     "@fastify/autoload": "5.6.0",
-    "@fastify/env": "^4.2.0",
     "@fastify/mongodb": "^6.2.0",
     "@fastify/sensible": "5.2.0",
     "@fastify/swagger": "8.2.1",
