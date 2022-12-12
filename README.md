@@ -10,6 +10,10 @@ Opinionated boilerplate to build a Fastify app and Mongodb with better DX.
 
 
 
+
+
+
+
 ## Introduction
 
 This is a fork of `fastify-esbuild` , a great work from [David Peng](https://github.com/davipon)  Thank's David.
