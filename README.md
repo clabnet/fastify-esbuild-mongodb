@@ -1,14 +1,40 @@
-# fastify-esbuild
+# fastify-esbuild-mongodb
 
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
-Opinionated boilerplate to build a Fastify app with better DX.
+Opinionated boilerplate to build a Fastify app and Mongodb with better DX.
 
 ---
 
-## Article
+<img align="center" src="https://i.ibb.co/4KdXR3z/fastify-esbuild-mongodb-land-image.png"/>
 
-[Better Backend DX: Fastify + ESBuild = ⚡️](https://davipon.hashnode.dev/better-backend-dx-fastify-esbuild)
+
+
+## Introduction
+
+This is a fork of `fastify-esbuild` , a great work from [David Peng](https://github.com/davipon)  Thank's David.
+
+This code is born after reading the articles on [Better Backend DX: Fastify + ESBuild = ⚡️](https://davipon.hashnode.dev/better-backend-dx-fastify-esbuild)
+
+In addition this project have these features :
+
+- Complete MongoDB collections management with [node-mongo](https://ship.paralect.com/docs/packages/node-mongo) package to simplify Mongodb usage. 
+  It is used the official Node.js driver  (**<u>Mongoose is not used</u>**)
+- Full test suite using [Vitest](https://vitest.dev/)
+- Configuration using dotenv environments
+- CRUD complete for the `books` sample collection.
+
+
+
+Feel to free enhancements, proposal, (errors).
+
+----------------------
+
+### Original article:
+
+https://davipon.hashnode.dev/better-backend-dx-fastify-esbuild)
+
+
 
 ## Features
 
@@ -49,7 +75,8 @@ pnpm release
 ## TODO
 
 - [ ] Add `docker` or `docker-compose` for deployment
-- [ ] Add `vitest` & `msw`
-- [ ] Add `dotnev` for different stages
-- [ ] Add `mongodb` examples
+- [x] Add `vitest` 
+- [ ] Add `msw`
+- [x] Add `dotenv` for different stages
+- [x] Add `mongodb` examples
 - [ ] Add `envoy` as a sidecar proxy
