@@ -6,7 +6,7 @@ Opinionated boilerplate to build a Fastify app and Mongodb with better DX.
 
 ---
 
-<img align="center" src="https://i.ibb.co/4KdXR3z/fastify-esbuild-mongodb-land-image.png"/>
+<img align="center" src="https://i.ibb.co/4KdXR3z/fastify-esbuild-mongodb-land-image.png" width="700" height="300"/>
 
 
 
