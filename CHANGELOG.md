@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.2](https://github.com/clabnet/fastify-esbuild-mongodb/compare/v0.2.1...v0.2.2) (2022-12-12)
+
+
+### ✨ Features
+
+* add vitest fro CRUD mongo ([bc88d04](https://github.com/clabnet/fastify-esbuild-mongodb/commit/bc88d04e25eac06e77ea671a81e9b55e16aa0218))
+
 ### 0.2.1 (2022-12-11)
 
 
