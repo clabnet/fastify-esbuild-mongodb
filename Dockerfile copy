@@ -1,0 +1,42 @@
+# Download the slim version of node
+FROM node:18.10.0-bullseye-slim AS build
+
+# update OS
+RUN apt-get update && apt-get install -y --no-install-recommends dumb-init
+
+# Set the work directory to app folder. 
+# We will be copying our code here
+WORKDIR /usr/src/app
+
+#Copy package.json file in the node folder inside container
+COPY package*.json /usr/src/app/
+COPY pnpm-lock.yaml /usr/src/app/
+
+COPY esbuild.ts /usr/src/app/
+
+# Install the dependencies in the container
+RUN npm install -g npm@9.1.2
+RUN npm install -g pnpm
+RUN pnpm install --frozen-lockfile
+
+
+FROM node:18.10.0-bullseye-slim
+ENV NODE_ENV production
+COPY --from=build /usr/bin/dumb-init /usr/bin/dumb-init
+USER node
+WORKDIR /usr/src/app
+
+# Copy dependencies from build stage to container
+COPY --chown=node:node --from=build /usr/src/app/node_modules /usr/src/app/node_modules
+
+# Copy the rest of the code in the container
+#COPY --chown=node:node . /usr/src/app
+COPY --chown=node:node . /usr/src/app
+
+
+# Expose the service over PORT 80
+EXPOSE 80
+
+# Run the node server with index.js file
+#CMD [ "dumb-init", "node", "./build/index.js"]
+CMD [ "dumb-init", "npm", "start"]

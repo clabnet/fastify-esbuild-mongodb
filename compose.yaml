@@ -1,0 +1,33 @@
+version: '3.9'
+services:
+  # mongo:
+  #   image: mongo:latest
+  #   container_name: mongo
+  #   restart: unless-stopped
+  #   environment:
+  #     MONGO_INITDB_DATABASE: mongodb
+  #     MONGO_INITDB_ROOT_USERNAME: dev
+  #     MONGO_INITDB_ROOT_PASSWORD: dev
+  #   ports:
+  #     - 27017:27017
+
+  mediaservice:
+    image: mediaservice-ts:latest
+    container_name: mediaservice-ts
+    restart: unless-stopped
+    cap_add:
+      - SYS_ADMIN
+    environment:
+      NODE_ENV: production
+      HTTP_PORT: 5000
+      ENCRYPTION_KEY: t6w9z$C&F)H@McQfTjWnZr4u7x!A%D*G-KaNdRgUkXp2s5v8y/B?E(H+MbQeShVm
+      JWT_KEY: c60Fk3ISAuo7she1Tf2X4BEajvWXbI5u
+      JWT_ROLE_CLAIM_IDENTIFIER: http://schemas.microsoft.com/ws/2008/06/identity/claims/role
+      DB_URI: mongodb://dev:dev@mongo:27017
+      DB_NAME: pominidb
+    ports:
+      - 5000:5000
+    # depends_on:
+    #   - mongo
+    volumes:
+      - ./images:/usr/src/app/uploaded
